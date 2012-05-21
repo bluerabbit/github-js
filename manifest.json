@@ -1,0 +1,11 @@
+{
+  "name":"github-js",
+  "description":"何かできるよてい",
+  "version":"0.0.0.1",
+  "background_page":"html/background.html",
+  "permissions":[
+    "notifications",
+    "tabs",
+    "https://api.github.com/*"
+  ]
+}

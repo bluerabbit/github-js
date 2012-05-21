@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="/js/assert.js"></script>
+  <script type="text/javascript" src="/js/github.js"></script>
+  <script type="text/javascript" src="/js/manifest.js"></script>
+
+  <script type="text/javascript">
+    function qunit() {
+      if (assert && assert.DEBUG) {
+        window.open('chrome-extension://' + location.host + '/test/index.html');
+      }
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>
