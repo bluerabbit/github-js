@@ -6,6 +6,7 @@
   "permissions":[
     "notifications",
     "tabs",
-    "https://api.github.com/*"
+    "https://api.github.com/*",
+    "https://github.com/inbox/notifications"
   ]
 }

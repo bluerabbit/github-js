@@ -7,8 +7,16 @@ module('GitHub.js', {
 });
 
 test('gists', function() {
-	this.github.gists(1, function (json) {
+    this.github.gists(1, function (json) {
         console.log(json);
         ok(json != null);
     });
 });
+
+test('notifications', function() {
+    this.github.notifications(function (count) {
+        console.log(count);
+        ok(count != null);
+    });
+});
+
