@@ -14,9 +14,9 @@ test('gists', function() {
 });
 
 test('notifications', function() {
-    this.github.notifications(function (count) {
-        console.log(count);
-        ok(count != null);
+    this.github.notifications(function (hash) {
+        console.log(hash);
+        ok(hash != null);
     });
 });
 
