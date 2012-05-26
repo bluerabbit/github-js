@@ -4,7 +4,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
   <script type="text/javascript" src="/js/assert.js"></script>
+  <script type="text/javascript" src="/js/underscore.js"></script>
   <script type="text/javascript" src="/js/github.js"></script>
+  <script type="text/javascript" src="/js/options.js"></script>
+  <script type="text/javascript" src="/js/timer.js"></script>
   <script type="text/javascript" src="/js/manifest.js"></script>
 
   <script type="text/javascript">
@@ -13,6 +16,42 @@
         window.open('chrome-extension://' + location.host + '/test/index.html');
       }
     }
+    function popup() {
+      window.open('chrome-extension://' + location.host + '/html/popup.html');
+    }
+    var options = Options.load();
+    var timer = new Timer(1000 * 60 * 1); // 1分に一回
+
+    function main(options) {
+      setBadgeText(options);
+      timer.start(function () {
+        console.log("timer run");
+        console.log(options);
+        new GitHub().notifications(function (json) {
+          console.log(json);
+          options.notifications = json.items;
+//          json.items.forEach(function (item, i) {
+//            if (_.find(options.notifications, function(e){ return e.link === item.link; }) == null) {
+//              options.notifications.push(item);
+//            }
+//          });
+          options.unread_count = json.unread_count;
+          options.save();
+          setBadgeText(options);
+        });
+      });
+    }
+
+    main(options);
+
+    function setBadgeText(options) {
+      if (options.unread_count == 0) {
+        chrome.browserAction.setBadgeText({text:''});
+      } else {
+        chrome.browserAction.setBadgeText({text:'' + options.unread_count});
+      }
+    }
+
   </script>
 </head>
 <body>

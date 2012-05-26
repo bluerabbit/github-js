@@ -14,11 +14,17 @@ GitHub.prototype = {
             var items = [];
             $html.find('#inbox .item.unread').each(function (i, item) {
                 var $message = $(item).find('.message');
-                items.push({user:$(item).find('.title a').text(),
+                var title = $(item).find('.title').text().replace(/\n/g, '').trim().split(' ');
+                title = $.map(title, function (v) { if( v.length > 0){ return v; }}).join(' ');
+                items.push({user:$(item).find('.title a:first').text(),
+                            userIcon:$(item).find('.gravatar img').attr('src'),
+                            type:$(item).find('.title span:first').text(),
+                            repository:$(item).find('.title a:last').text(),
+                            title:title,
                             link:$message.find('a.subject').attr('href'),
                             subject:$message.find('a.subject').text(),
-                            body:$message.find('a.body').text(),
-                            icon:$(item).find('.gravatar img').attr('src')});
+                            body:$message.find('a.body').text()});
+                console.log(items);
             });
             callback({unread_count:count, items:items});
         });

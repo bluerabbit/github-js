@@ -3,6 +3,11 @@
   "description":"何かできるよてい",
   "version":"0.0.0.1",
   "background_page":"html/background.html",
+  "browser_action":{
+    "default_title":"github-js",
+    "default_icon":"images/icon.png",
+    "popup":"html/popup.html"
+  },
   "permissions":[
     "notifications",
     "tabs",

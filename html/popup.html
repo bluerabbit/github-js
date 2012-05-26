@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>github-js</title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/popup.css" rel="stylesheet">
+  <script src="/js/jquery-1.7.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/handlebars-1.0.0.beta.6.js"></script>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="http://" target="_blank">github-js</a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="active"><a id="menu_config" href="#" >Config</a></li>
+          <li><a id="menu_news" href="#" >News</a></li>
+          <li><a id="menu_about" href="#" >About</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div id="body"></div>
+</div>
+<!-- /container -->
+
+<script id="notifications-template" type="text/x-handlebars-template">
+  <h1>{{title}}</h1>
+  <p>{{body}}</p>
+  <div style="height: 200px; overflow-y:scroll;">
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th>User</th>
+        <th>Message</th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each entryList}}
+      <tr>
+        <td><a href="http://github.com/{{user}}" target="_blank"><img width="30" height="30" src="{{userIcon}}" /></a></td>
+        <td>{{title}}<br /><a href="{{link}}" target="_blank">{{subject}}</a><br />{{body}}</td>
+      </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</script>
+
+<script type="text/javascript">
+  var BG = chrome.extension.getBackgroundPage();
+  var notifications = BG.options.notifications;
+  var template = Handlebars.compile($("#notifications-template").html());
+  $('#body').html(template({title:'Notifications', entryList:notifications}));
+</script>
+</body>
+</html>
